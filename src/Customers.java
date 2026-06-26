@@ -2,45 +2,94 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Customers screen for the Video Library System.
+ * Allows registering and removing customers.
+ */
 public class Customers {
 
+    /**
+     * Displays the Customers GUI on the given stage.
+     * @param stage the JavaFX stage
+     */
     public void start(Stage stage) {
 
-        Text text1 = new Text("Full Name:");
-        Text text2 = new Text("Registered:");
+        // Labels
+        Text text1 = new Text("Name:");
+        Text text2 = new Text("Phone:");
+        Text text3 = new Text("Email:");
+        Text text4 = new Text("Registered:");
 
-        TextField nameField = new TextField();
+        // Controls
+        TextField nameField  = new TextField();
+        TextField phoneField = new TextField();
+        TextField emailField = new TextField();
+
         ComboBox<String> registeredBox = new ComboBox<>();
-        registeredBox.getItems().addAll("Yes", "No");
+        registeredBox.setMaxWidth(Double.MAX_VALUE);
 
-        Button saveBtn = new Button("Save");
-        Button removeBtn = new Button("Remove");
+        // Buttons
+        Button saveBtn   = new Button("Save Customer");
+        Button removeBtn = new Button("Remove Customer");
+        Button backBtn   = new Button("Back");
 
-        Button backBtn = new Button("Back");
+        saveBtn.setMaxWidth(Double.MAX_VALUE);
+        removeBtn.setMaxWidth(Double.MAX_VALUE);
+        backBtn.setMaxWidth(Double.MAX_VALUE);
 
+        // GridPane setup
         GridPane gridPane = new GridPane();
         gridPane.setMinSize(600, 400);
-        gridPane.setPadding(new Insets(10));
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
         gridPane.setVgap(10);
         gridPane.setHgap(10);
         gridPane.setAlignment(Pos.CENTER);
 
-        gridPane.add(text1, 0, 0);
-        gridPane.add(nameField, 1, 0);
-        gridPane.add(saveBtn, 1, 1);
+        ColumnConstraints col1 = new ColumnConstraints(120);
+        ColumnConstraints col2 = new ColumnConstraints(250);
+        gridPane.getColumnConstraints().addAll(col1, col2);
 
-        gridPane.add(text2, 0, 2);
-        gridPane.add(registeredBox, 1, 2);
-        gridPane.add(removeBtn, 1, 3);
+        // Add nodes
+        gridPane.add(text1,      0, 0);
+        gridPane.add(nameField,  1, 0);
 
-        gridPane.add(backBtn, 1, 4);
+        gridPane.add(text2,      0, 1);
+        gridPane.add(phoneField, 1, 1);
 
+        gridPane.add(text3,      0, 2);
+        gridPane.add(emailField, 1, 2);
+
+        gridPane.add(saveBtn,    1, 3);
+
+        gridPane.add(text4,         0, 4);
+        gridPane.add(registeredBox, 1, 4);
+        gridPane.add(removeBtn,     1, 5);
+
+        gridPane.add(backBtn, 1, 6);
+
+        // Navigation
         backBtn.setOnAction(e -> new Genres().start(stage));
 
+        // Styling
+        String btnStyle   = "-fx-background-color: darkslateblue; -fx-text-fill: white; -fx-font-size: 13pt;";
+        String labelStyle = "-fx-font: normal bold 20px 'serif';";
+
+        saveBtn.setStyle(btnStyle);
+        removeBtn.setStyle(btnStyle);
+        backBtn.setStyle("-fx-background-color: steelblue; -fx-text-fill: white; -fx-font-size: 11pt;");
+
+        text1.setStyle(labelStyle);
+        text2.setStyle(labelStyle);
+        text3.setStyle(labelStyle);
+        text4.setStyle(labelStyle);
+        gridPane.setStyle("-fx-background-color: BEIGE;");
+
+        // Scene and Stage
         Scene scene = new Scene(gridPane);
         stage.setTitle("Customers");
         stage.setScene(scene);
